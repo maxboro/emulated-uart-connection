@@ -32,11 +32,11 @@ Compile code:
  gcc transmitter.c -o transmitter
  gcc receiver.c -o receiver
 ```
-Run receiver:
+Start receiver:
 ```bash
  ./receiver
 ```
-Run transmitter:
+Start transmitter in another terminal:
 ```bash
  ./transmitter
 ```
