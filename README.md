@@ -25,9 +25,25 @@ Start receiver in another terminal:
  python ./transmission/python/receiver.py
 ```
 
+### C version (currently just a minimal example)
+Compile code:
+```bash
+ cd ./transmission/c/
+ gcc transmitter.c -o transmitter
+ gcc receiver.c -o receiver
+```
+Start receiver:
+```bash
+ ./receiver
+```
+Start transmitter in another terminal:
+```bash
+ ./transmitter
+```
+
 # Example
 ### Python version
-Transmission terminal:
+Transmitter terminal:
 ```terminal
 Transmission started at 10 Hz rate
 Devices: {'PTY_T': '/dev/pts/6', 'PTY_R': '/dev/pts/7'}
@@ -63,4 +79,40 @@ N received: 45, n sent 45.
 Success rate: 100.0%
 Receiver serial is closed
 ```
-
+### C version
+Transmitter terminal:
+```terminal
+Connection params:
+/dev/pts/6
+/dev/pts/7
+main PTY_T: /dev/pts/6
+main PTY_R: /dev/pts/7
+Msg 0 is sent.
+Msg 1 is sent.
+Msg 2 is sent.
+Msg 3 is sent.
+Msg 4 is sent.
+Msg 5 is sent.
+Msg 6 is sent.
+Msg 7 is sent.
+Msg 8 is sent.
+Msg 9 is sent.
+```
+Receiver terminal:
+```terminal
+Connection params:
+/dev/pts/6
+/dev/pts/7
+main PTY_T: /dev/pts/6
+main PTY_R: /dev/pts/7
+Received: String send by C transmitter #0.
+Received: String send by C transmitter #1.
+Received: String send by C transmitter #2.
+Received: String send by C transmitter #3.
+Received: String send by C transmitter #4.
+Received: String send by C transmitter #5.
+Received: String send by C transmitter #6.
+Received: String send by C transmitter #7.
+Received: String send by C transmitter #8.
+Received: String send by C transmitter #9.
+```
