@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <stdbool.h>
 
 #include "utils.h"
 
@@ -15,10 +16,22 @@ int main() {
         return 1;
     }
 
-    char buffer[256];
-    for (int n_msg = 0; n_msg < 10; n_msg++) {
+    bool proceed_receiving = true;
+    while (proceed_receiving) {
+        char buffer[256];
         int bytes_read = read(serial_port, buffer, sizeof(buffer) - 1);
-        if (bytes_read > 0) {
+
+        // Check for end of transmission signal
+        for (int i = 0; i < bytes_read; i++){
+            if (buffer[i] == 3) {
+                printf("Received end of transmission signal\n");
+                proceed_receiving = false;
+                break;
+            }
+        }
+
+        // Print message received
+        if (bytes_read > 0 && proceed_receiving) {
             buffer[bytes_read] = '\0';
             printf("Received: %s\n", buffer);
         }
