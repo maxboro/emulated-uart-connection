@@ -4,6 +4,16 @@
 
 #include "utils.h"
 
+// Send end of transmission signal
+void end_of_transmission(int serial_port) {
+    char end_of_transmission_char = 3;
+    char end_of_transmission_message[] = {end_of_transmission_char , '\0'};
+
+    write(serial_port, end_of_transmission_message, strlen(end_of_transmission_message));
+    printf("End of transmission signal is sent.\n");
+    fflush(stdout);
+}
+
 int main() {
     struct ConnectionParams params = get_devices();
     printf("main PTY_T: %s\n", params.PTY_T);
@@ -23,6 +33,8 @@ int main() {
         fflush(stdout);
         sleep(1);
     }
+
+    end_of_transmission(serial_port);
     
     close(serial_port);
     return 0;
