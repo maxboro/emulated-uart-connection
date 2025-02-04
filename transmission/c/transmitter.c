@@ -29,9 +29,9 @@ int main() {
         struct Record new_record = create_record();
         new_record.n = n_msg;
         char message[40];
-        sprintf(message, "String send by C transmitter #%d.", n_msg);
+        sprintf(message, "%d %lf %f %f", new_record.n, new_record.ts, new_record.val1, new_record.val2);
         write(serial_port, message, strlen(message));
-        printf("Msg %d is sent.\n", n_msg);
+        printf("Msg '%s' is sent.\n", message);
         fflush(stdout);
         sleep(1);
     }

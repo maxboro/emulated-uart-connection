@@ -64,4 +64,5 @@ struct Record create_record() {
     new_record.ts = get_time();
     new_record.val1 = get_random_float();
     new_record.val2 = get_random_float();
+    return new_record;
 }
