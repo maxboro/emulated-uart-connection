@@ -83,36 +83,38 @@ Receiver serial is closed
 Transmitter terminal:
 ```terminal
 Connection params:
-/dev/pts/6
-/dev/pts/7
-main PTY_T: /dev/pts/6
-main PTY_R: /dev/pts/7
-Msg 0 is sent.
-Msg 1 is sent.
-Msg 2 is sent.
-Msg 3 is sent.
-Msg 4 is sent.
-Msg 5 is sent.
-Msg 6 is sent.
-Msg 7 is sent.
-Msg 8 is sent.
-Msg 9 is sent.
+/dev/pts/4
+/dev/pts/5
+main PTY_T: /dev/pts/4
+main PTY_R: /dev/pts/5
+Msg '0 1738691627.088000 1804289.375000 846930.875000' is sent.
+Msg '1 1738691628.089000 1681692.750000 1714636.875000' is sent.
+Msg '2 1738691629.090000 1957747.875000 424238.343750' is sent.
+Msg '3 1738691630.091000 719885.375000 1649760.500000' is sent.
+Msg '4 1738691631.092000 596516.687500 1189641.500000' is sent.
+Msg '5 1738691632.093000 1025202.375000 1350490.000000' is sent.
+Msg '6 1738691633.094000 783368.687500 1102520.125000' is sent.
+Msg '7 1738691634.094000 2044897.750000 1967514.000000' is sent.
+Msg '8 1738691635.096000 1365180.500000 1540383.500000' is sent.
+Msg '9 1738691636.096000 304089.187500 1303455.750000' is sent.
+End of transmission signal is sent.
 ```
 Receiver terminal:
 ```terminal
 Connection params:
-/dev/pts/6
-/dev/pts/7
-main PTY_T: /dev/pts/6
-main PTY_R: /dev/pts/7
-Received: String send by C transmitter #0.
-Received: String send by C transmitter #1.
-Received: String send by C transmitter #2.
-Received: String send by C transmitter #3.
-Received: String send by C transmitter #4.
-Received: String send by C transmitter #5.
-Received: String send by C transmitter #6.
-Received: String send by C transmitter #7.
-Received: String send by C transmitter #8.
-Received: String send by C transmitter #9.
+/dev/pts/4
+/dev/pts/5
+main PTY_T: /dev/pts/4
+main PTY_R: /dev/pts/5
+Received: 0 1738691627.088000 1804289.375000 846930.875000
+Received: 1 1738691628.089000 1681692.750000 1714636.875000
+Received: 2 1738691629.090000 1957747.875000 424238.343750
+Received: 3 1738691630.091000 719885.375000 1649760.500000
+Received: 4 1738691631.092000 596516.687500 1189641.500000
+Received: 5 1738691632.093000 1025202.375000 1350490.000000
+Received: 6 1738691633.094000 783368.687500 1102520.125000
+Received: 7 1738691634.094000 2044897.750000 1967514.000000
+Received: 8 1738691635.096000 1365180.500000 1540383.500000
+Received: 9 1738691636.096000 304089.187500 1303455.750000
+Received end of transmission signal
 ```
