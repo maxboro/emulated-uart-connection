@@ -26,6 +26,8 @@ int main() {
     }
 
     for (int n_msg = 0; n_msg < 10; n_msg++) {
+        struct Record new_record = create_record();
+        new_record.n = n_msg;
         char message[40];
         sprintf(message, "String send by C transmitter #%d.", n_msg);
         write(serial_port, message, strlen(message));
