@@ -5,6 +5,25 @@
 
 #include "utils.h"
 
+// Parse message into elements of record and compose record
+struct Record parse_record(char msg[]) {
+    struct Record new_record;
+
+    char* token = strtok(msg, " ");
+    new_record.n = atoi(token);
+
+    token = strtok(NULL, " ");
+    new_record.ts = atof(token);
+
+    token = strtok(NULL, " ");
+    new_record.val1 = atof(token);
+
+    token = strtok(NULL, " ");
+    new_record.val2 = atof(token);
+
+    return new_record;
+}
+
 int main() {
     struct ConnectionParams params = get_devices();
     printf("main PTY_T: %s\n", params.PTY_T);
@@ -34,6 +53,9 @@ int main() {
         if (bytes_read > 0 && proceed_receiving) {
             buffer[bytes_read] = '\0';
             printf("Received: %s\n", buffer);
+            struct Record record = parse_record(buffer);
+            float val_sum = record.val1 + record.val2;
+            printf("Val sum: %f\n", val_sum);
         }
     }
 
