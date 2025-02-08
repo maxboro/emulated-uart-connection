@@ -2,8 +2,19 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <signal.h>
 
 #include "utils.h"
+
+int serial_port = -1;
+
+void handle_sigint(int sig) {
+    printf("\nCaught signal %d (SIGINT). Exiting safely...\n", sig);
+    if (serial_port >= 0) {
+        close(serial_port);
+    }
+    exit(0);
+}
 
 // Parse message into elements of record and compose record
 struct Record parse_record(char msg[]) {
@@ -25,11 +36,14 @@ struct Record parse_record(char msg[]) {
 }
 
 int main() {
+    // Register the signal handler
+    signal(SIGINT, handle_sigint);
+    
     struct ConnectionParams params = get_devices();
     printf("main PTY_T: %s\n", params.PTY_T);
     printf("main PTY_R: %s\n", params.PTY_R);
 
-    int serial_port = open(params.PTY_R, O_RDONLY);
+    serial_port = open(params.PTY_R, O_RDONLY);
     if (serial_port < 0) {
         perror("Error opening serial port");
         return 1;
