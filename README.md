@@ -29,8 +29,8 @@ Start receiver in another terminal:
 Compile code:
 ```bash
  cd ./transmission/c/
- gcc transmitter.c -o transmitter
- gcc receiver.c -o receiver
+ gcc -fsanitize=address -g transmitter.c -o transmitter
+ gcc -fsanitize=address -g receiver.c -o receiver
 ```
 Start receiver:
 ```bash

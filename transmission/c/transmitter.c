@@ -28,7 +28,7 @@ int main() {
     for (int n_msg = 0; n_msg < 10; n_msg++) {
         struct Record new_record = create_record();
         new_record.n = n_msg;
-        char message[40];
+        char message[50];
         sprintf(message, "%d %lf %f %f", new_record.n, new_record.ts, new_record.val1, new_record.val2);
         write(serial_port, message, strlen(message));
         printf("Msg '%s' is sent.\n", message);
