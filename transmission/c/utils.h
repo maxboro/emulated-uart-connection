@@ -1,3 +1,6 @@
+#ifndef UTILS_H
+#define UTILS_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -66,3 +69,5 @@ struct Record create_record() {
     new_record.val2 = get_random_float();
     return new_record;
 }
+
+#endif
