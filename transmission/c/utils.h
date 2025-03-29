@@ -6,6 +6,8 @@
 #include <string.h>
 #include <time.h>
 
+#define MAX_LINE_LEN 20
+
 struct ConnectionParams {
     char PTY_T[11];
     char PTY_R[11];
@@ -28,9 +30,8 @@ struct ConnectionParams get_devices() {
         exit(EXIT_FAILURE);
     }
 
-    int max_line_len = 20;
-    char line[max_line_len];
-    while (fgets(line, max_line_len, fptr) != NULL) {  // Read line by line
+    char line[MAX_LINE_LEN];
+    while (fgets(line, MAX_LINE_LEN, fptr) != NULL) {  // Read line by line
         if (line[4] == 'T'){
             strncpy(params.PTY_T, &line[6], 10);
             params.PTY_T[10] = '\0';
