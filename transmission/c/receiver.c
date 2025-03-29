@@ -35,19 +35,42 @@ struct Record parse_record(char msg[]) {
     return new_record;
 }
 
+bool open_port(int* serial_port, struct ConnectionParams* params){
+    *serial_port = open(params->PTY_R, O_RDONLY);
+    if (*serial_port < 0) {
+        perror("Error opening serial port.\n");
+        return false;
+    }
+    return true;
+}
+
+void print_stats(int first_n_received, int last_n_received, int n_received){
+    if (n_received == 0 || first_n_received < 0 || last_n_received < 0){
+        printf("Nothing seems to be received.\n");
+        return;
+    }
+
+    int packs_sent = last_n_received - first_n_received + 1;
+    printf("Packs sent %d, packs received %d.\n", packs_sent, n_received);
+    float success_rate = 100 * (float)n_received / (float) packs_sent;
+    printf("Receiving success rate: %.1f\n", success_rate);
+}
+
 int main() {
     // Register the signal handler
     signal(SIGINT, handle_sigint);
+
+    int first_n_received = -1;
+    int last_n_received = -1;
+    int n_received = 0;
     
     struct ConnectionParams params = get_devices();
     printf("main PTY_T: %s\n", params.PTY_T);
     printf("main PTY_R: %s\n", params.PTY_R);
 
-    serial_port = open(params.PTY_R, O_RDONLY);
-    if (serial_port < 0) {
-        perror("Error opening serial port");
-        return 1;
-    }
+    bool opened = open_port(&serial_port, &params);
+    if (!opened)
+        return -1;
 
     bool proceed_receiving = true;
     while (proceed_receiving) {
@@ -62,17 +85,25 @@ int main() {
                 break;
             }
         }
-
+        
+        struct Record record;
         // Print message received
         if (bytes_read > 0 && proceed_receiving) {
             buffer[bytes_read] = '\0';
             printf("Received: %s\n", buffer);
-            struct Record record = parse_record(buffer);
+            record = parse_record(buffer);
             float val_sum = record.val1 + record.val2;
             printf("Val sum: %f\n", val_sum);
+            n_received++;
         }
+
+        
+        if (first_n_received < 0)
+            first_n_received = record.n;
+        last_n_received = record.n;
     }
 
     close(serial_port);
+    print_stats(first_n_received, last_n_received, n_received);
     return 0;
 }
